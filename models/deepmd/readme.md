@@ -115,8 +115,25 @@ They build DeePMD from source and require Linux x86-64, a CUDA toolkit with
 `nvcc`, and a compatible C++ compiler. Select the target GPU before building;
 native extensions target the visible GPU architecture.
 
-These Python 3.14 projects are reproduction candidates whose clean-install
-validation is incomplete. The reused Air/Max MD and diatomic measurements were
+These Python 3.14 projects passed isolated Linux host installation, dependency
+compatibility checks, GPU imports, Cu/H2 force/stress finite differences and
+translation checks, and energy comparisons on 12 historical WBM structures per
+model. The shared MD runner passed a 200-step smoke test and the diatomic runner
+passed an H/He/Li smoke test for each model. Air and C used fresh exports of the
+inference-only release checkpoints; Max reused its previously hash-verified
+same-source/PyTorch A800 export. These bounded checks do not establish numerical
+parity for every diatomic curve or reproduce a complete benchmark campaign.
+
+Installation used current-platform `uv pip install --project <project> --python
+<environment>/bin/python -r <project>/pyproject.toml`, with the matching PyTorch
+CUDA index and a package mirror/cache. The server could not download the
+canonical GitHub archive URL, so the validation project used an official
+codeload archive with identical verified source contents; the repository path
+was made absolute. Dependency declarations and build settings were preserved.
+Canonical-URL `uv sync` and universal lockfile generation remain unverified.
+The A800 validation does not reproduce the recorded RTX PRO 6000 costs.
+
+The reused Air/Max MD and diatomic measurements were
 made with Python 3.13, PyTorch 2.13.0+cu130 and archived DeePMD revisions on
 NVIDIA RTX PRO 6000 Blackwell Server Edition. Their recorded runtimes describe
 those historical runs, not the candidate environments below.

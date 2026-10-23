@@ -108,8 +108,14 @@ hyperparams:
     tf32_matmul: true
 notes:
   submission_status: Draft prepared for colleague review before the model owner makes
-    the official submission. Public artifact URLs remain pending. The Python 3.14
-    shared-runner environment remains under validation.
+    the official submission. Public artifact URLs remain pending. The declared Python
+    3.14 dependencies were installed in an isolated Linux environment and passed GPU
+    imports, physical-derivative and historical-energy checks, plus official MD/diatomic
+    dry-runs. Source transport used an identical verified official archive and current-platform
+    uv pip installation; canonical-URL uv sync and universal lockfile generation were
+    not validated. This check does not reproduce the historical timing campaign. Max
+    reused its previously hash-verified same-source/Torch A800 frozen export; it was
+    not re-exported in this check.
   metadata_provenance: At the submitter's direction, authors, trained_by, checkpoint
     license, training task and targets follow dpa-4.0.1-pro-mptrj.yml. The submitter
     confirms training on MPtrj, OMat24 and sAlex, with OSOD openness. Model-specific
