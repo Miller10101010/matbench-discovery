@@ -79,11 +79,25 @@ TF32 matmul, and `torch.compile` enabled.
 
 ### DPA-4.1-OAM inference
 
-The three DPA-4.1 model cards are review drafts. Author, checkpoint-license,
-training-data and public-artifact metadata require model-owner confirmation;
-their absence currently prevents the complete model-schema checks from passing.
+The three DPA-4.1 model cards are review drafts. At the submitter's direction,
+authors, trained-by information, the CC-BY-4.0 checkpoint license, training task
+and targets follow the DPA-4.0.1-Pro-MPtrj card. The submitter confirms training
+on MPtrj, OMat24 and sAlex, with OSOD openness. Public artifact URLs remain
+pending; schema validity alone does not establish publication readiness.
 Known Air/Max short-range diatomic anomalies and frozen/eager precision
 limitations are recorded in the cards and retained in the metrics.
+
+Model-specific hyperparameters come from the original checkpoints, using only
+keys already present in the MPtrj reference card. The original optimizer state
+identifies HybridMuon with `muon_mode: slice` and `weight_decay: 0.001` for all
+three models. Their checkpoint steps are 446,624 (Air), 314,359 (Max) and
+217,103 (C Air); these identify the selected checkpoints, not a planned total
+training schedule. GPU counts, training hours, loss weights, batch sizes and
+learning-rate schedules were not saved in the supplied checkpoints and are
+omitted. The reference model's training costs and hyperparameter values are
+not copied. The full model configuration remains embedded in each released
+inference checkpoint after removal of optimizer, auxiliary EMA and training
+history.
 
 The DPA-4.1-Air-OAM and DPA-4.1-Max-OAM checkpoints use DeePMD's `--pt`
 export backend. DPA-4.1C-Air-OAM uses `--pt-expt`. Their shared calculator
