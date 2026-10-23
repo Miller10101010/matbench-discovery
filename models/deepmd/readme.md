@@ -91,13 +91,26 @@ Model-specific hyperparameters come from the original checkpoints, using only
 keys already present in the MPtrj reference card. The original optimizer state
 identifies HybridMuon with `muon_mode: slice` and `weight_decay: 0.001` for all
 three models. Their checkpoint steps are 446,624 (Air), 314,359 (Max) and
-217,103 (C Air); these identify the selected checkpoints, not a planned total
-training schedule. GPU counts, training hours, loss weights, batch sizes and
-learning-rate schedules were not saved in the supplied checkpoints and are
-omitted. The reference model's training costs and hyperparameter values are
-not copied. The full model configuration remains embedded in each released
+217,103 (C Air); these identify the fine-tuning checkpoints, not the sum of
+pretraining and fine-tuning steps. Loss weights, batch sizes and learning-rate
+schedules were not saved in the supplied checkpoints and are omitted. The
+reference model's training costs and hyperparameter values are not copied.
+The full model configuration remains embedded in each released
 inference checkpoint after removal of optimizer, auxiliary EMA and training
 history.
+
+The submitter supplied the following training costs on NVIDIA RTX PRO 6000.
+The hardware variant was not specified. Each card contains two existing-schema
+`training_cost.entries`, ordered pretraining then fine-tuning. The supplied
+times already include GPU count; `hours_per_device` divides each stage's
+GPU-hours by that count. Supplied rounded totals are preserved instead of
+recalculating them from rounded seconds per step.
+
+| Model | Pretraining GPUs × hours/device | Fine-tuning GPUs × hours/device | Total GPU-hours |
+| --- | ---: | ---: | ---: |
+| DPA-4.1-Air-OAM | 4 × 40.9325 | 1 × 63.91 | 227.64 |
+| DPA-4.1-Max-OAM | 16 × 210.38375 | 2 × 80.055 | 3526.25 |
+| DPA-4.1C-Air-OAM | 1 × 17.37 | 1 × 2.44 | 19.81 |
 
 The DPA-4.1-Air-OAM and DPA-4.1-Max-OAM checkpoints use DeePMD's `--pt`
 export backend. DPA-4.1C-Air-OAM uses `--pt-expt`. Their shared calculator

@@ -121,12 +121,15 @@ notes:
     hyperparameters are extracted from each original checkpoint using only keys in
     that reference card. The old model's training costs, learning-rate schedule and
     loss settings are not copied.
-  training_metadata: training_steps is the displayed step of the submitted checkpoint
-    (PT stores a zero-based counter; PT-expt stores the displayed counter), not a
-    planned schedule length. The saved optimizer groups match HybridMuon. GPU count,
-    training hours, batch size, learning-rate schedule and loss weights are not recorded
-    in the supplied checkpoints and are omitted. Full model configuration remains
-    embedded in each inference checkpoint.
+  training_metadata: Training-cost entries are ordered pretraining then fine-tuning.
+    The submitter reports NVIDIA RTX PRO 6000, 432,000 pretraining steps and 446,624
+    fine-tuning steps, totaling 227.64 GPU-hours. The supplied time column already
+    includes GPU count; hours_per_device is that reported GPU-hour value divided by
+    the stage's device count. Supplied rounded totals are preserved rather than recalculated
+    from rounded seconds/step. The GPU variant was not specified. hyperparams.training.training_steps
+    identifies the fine-tuning checkpoint, not the sum of both stages. Remaining training
+    values come from the original checkpoint using only MPtrj template keys; unavailable
+    values are omitted.
   prediction_provenance: Discovery and phonon predictions were supplied in the model
     submission directory and re-evaluated with Matbench Discovery commit 2b7bff925a6aff10240cf6ef0f59149f51adff7b.
     Canonical schema conversion preserves physical predictions.
@@ -289,3 +292,11 @@ metrics:
       failed_elements:
       - F
       missing_elements: []
+training_cost:
+  entries:
+  - hardware: NVIDIA RTX PRO 6000
+    count: 4
+    hours_per_device: 40.9325
+  - hardware: NVIDIA RTX PRO 6000
+    count: 1
+    hours_per_device: 63.91
