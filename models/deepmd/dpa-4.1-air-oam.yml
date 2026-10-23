@@ -1,4 +1,4 @@
-# REVIEW DRAFT: public artifact URLs and reproduction checks remain pending.
+# COLLEAGUE REVIEW DRAFT: public artifacts hosted; scientific and reproduction caveats remain documented.
 model_name: DPA-4.1-Air-OAM
 model_key: dpa-4.1-air-oam
 model_version: null
@@ -37,7 +37,7 @@ doi: null
 paper: null
 docs: https://github.com/deepmodeling/deepmd-kit
 pr_url: https://github.com/OutisLi/matbench-discovery/pull/1
-checkpoint_url: null
+checkpoint_url: https://ndownloader.figshare.com/files/70537293
 license:
   code: LGPL-3.0
   code_url: https://github.com/deepmodeling/deepmd-kit/blob/b94c0043eac81c06c123563295875055e37c43ae/LICENSE
@@ -108,13 +108,15 @@ hyperparams:
     tf32_matmul: false
 notes:
   submission_status: Draft prepared for colleague review before the model owner makes
-    the official submission. Public artifact URLs remain pending. The declared Python
-    3.14 dependencies were installed in an isolated Linux environment and passed GPU
-    imports, physical-derivative and historical-energy checks, plus official MD/diatomic
-    dry-runs. Source transport used an identical verified official archive and current-platform
-    uv pip installation; canonical-URL uv sync and universal lockfile generation were
-    not validated. This check does not reproduce the historical timing campaign. The
-    inference-only release checkpoint was freshly exported through the shared calculator.
+    the official submission. The inference checkpoint and nine prediction/provenance
+    files are publicly hosted on Figshare; server MD5 and anonymous-download SHA256
+    checks match the validated release files. The declared Python 3.14 dependencies
+    were installed in an isolated Linux environment and passed GPU imports, physical-derivative
+    and historical-energy checks, plus official MD/diatomic dry-runs. Source transport
+    used an identical verified official archive and current-platform uv pip installation;
+    canonical-URL uv sync and universal lockfile generation were not validated. This
+    check does not reproduce the historical timing campaign. The inference-only release
+    checkpoint was freshly exported through the shared calculator.
   metadata_provenance: At the submitter's direction, authors, trained_by, checkpoint
     license, training task and targets follow dpa-4.0.1-pro-mptrj.yml. The submitter
     confirms training on MPtrj, OMat24 and sAlex, with OSOD openness. Model-specific
@@ -173,6 +175,7 @@ metrics:
       name: models/deepmd/dpa-4.1-air-oam/2026-10-03-discovery.csv.gz
       size: 1315780
       md5: ed3468de9c4235fac3c3187725492812
+      url: https://ndownloader.figshare.com/files/70537227
     full_test_set:
       F1: 0.902241243383264
       DAF: 5.222511922392576
@@ -206,6 +209,7 @@ metrics:
       name: models/deepmd/dpa-4.1-air-oam/2026-10-03-geo-opt.jsonl.gz
       size: 102837541
       md5: c6916d75ccbead1f636cc752dbbfcbbd
+      url: https://ndownloader.figshare.com/files/70537230
     symprec=1e-5:
       rmsd: 0.06011811661601087
       n_sym_ops_mae: 2.7654370473570125
@@ -217,6 +221,7 @@ metrics:
         name: models/deepmd/dpa-4.1-air-oam/2026-10-03-geo-opt-symprec=1e-5-moyo=0.21.0.csv.gz
         size: 1340098
         md5: d3eee1c4abd71c0f63864f724ff0ea8f
+        url: https://ndownloader.figshare.com/files/70537233
     symprec=1e-2:
       rmsd: 0.06011811661601087
       n_sym_ops_mae: 1.9884886150924452
@@ -228,6 +233,7 @@ metrics:
         name: models/deepmd/dpa-4.1-air-oam/2026-10-03-geo-opt-symprec=1e-2-moyo=0.21.0.csv.gz
         size: 1349063
         md5: d4c0af86ec0526b7aa240ae570744068
+        url: https://ndownloader.figshare.com/files/70537236
   phonons:
     kappa_103:
       κ_SRME: 0.12900276964902535
@@ -240,19 +246,23 @@ metrics:
         name: models/deepmd/dpa-4.1-air-oam/2026-10-02-phonons-kappa-103.json.gz
         size: 11003523
         md5: e8d45c3fff3c66262fb72badf707b05d
+        url: https://ndownloader.figshare.com/files/70537239
       force_file:
         name: models/deepmd/dpa-4.1-air-oam/2026-10-02-phonons-kappa-103-forces.json.gz
         size: 59224134
         md5: 32dc3cb055b9b9987c70ac0076bd7db8
+        url: https://ndownloader.figshare.com/files/70537242
       run_info_file:
         name: models/deepmd/dpa-4.1-air-oam/2026-10-02-phonons-kappa-103-run-info.json
         size: 964
         md5: 5b2860e9bd507ef333026eb68669e9a4
+        url: https://ndownloader.figshare.com/files/70537251
   md:
     pred_file:
       name: models/deepmd/dpa-4.1-air-oam/2026-10-22-md-metrics.csv.gz
       size: 1541
       md5: afde40d90a0de6e2a607d6fb89eed38b
+      url: https://ndownloader.figshare.com/files/70537287
     hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
     run_time_sec: 12665.92
     max_rss_gb: 2.599
@@ -269,6 +279,7 @@ metrics:
       name: models/deepmd/dpa-4.1-air-oam/2026-10-22-diatomics.json.gz
       size: 490511
       md5: d999c7e36ae8b8b274b980b7f069a5c6
+      url: https://ndownloader.figshare.com/files/70537290
     energy_jump: 171361.256110482
     pbe_bond_length_error: 0.13221185365720772
     pbe_wall_dist_mae: 0.2500540060652335

@@ -1,4 +1,4 @@
-# REVIEW DRAFT: public artifact URLs and reproduction checks remain pending.
+# COLLEAGUE REVIEW DRAFT: public artifacts hosted; scientific and reproduction caveats remain documented.
 model_name: DPA-4.1-Max-OAM
 model_key: dpa-4.1-max-oam
 model_version: null
@@ -37,7 +37,7 @@ doi: null
 paper: null
 docs: https://github.com/deepmodeling/deepmd-kit
 pr_url: https://github.com/OutisLi/matbench-discovery/pull/1
-checkpoint_url: null
+checkpoint_url: https://ndownloader.figshare.com/files/70537500
 license:
   code: LGPL-3.0
   code_url: https://github.com/deepmodeling/deepmd-kit/blob/b94c0043eac81c06c123563295875055e37c43ae/LICENSE
@@ -108,14 +108,16 @@ hyperparams:
     tf32_matmul: true
 notes:
   submission_status: Draft prepared for colleague review before the model owner makes
-    the official submission. Public artifact URLs remain pending. The declared Python
-    3.14 dependencies were installed in an isolated Linux environment and passed GPU
-    imports, physical-derivative and historical-energy checks, plus official MD/diatomic
-    dry-runs. Source transport used an identical verified official archive and current-platform
-    uv pip installation; canonical-URL uv sync and universal lockfile generation were
-    not validated. This check does not reproduce the historical timing campaign. Max
-    reused its previously hash-verified same-source/Torch A800 frozen export; it was
-    not re-exported in this check.
+    the official submission. The inference checkpoint and nine prediction/provenance
+    files are publicly hosted on Figshare; server MD5 and anonymous-download SHA256
+    checks match the validated release files. The declared Python 3.14 dependencies
+    were installed in an isolated Linux environment and passed GPU imports, physical-derivative
+    and historical-energy checks, plus official MD/diatomic dry-runs. Source transport
+    used an identical verified official archive and current-platform uv pip installation;
+    canonical-URL uv sync and universal lockfile generation were not validated. This
+    check does not reproduce the historical timing campaign. Max reused its previously
+    hash-verified same-source/Torch A800 frozen export; it was not re-exported in
+    this check.
   metadata_provenance: At the submitter's direction, authors, trained_by, checkpoint
     license, training task and targets follow dpa-4.0.1-pro-mptrj.yml. The submitter
     confirms training on MPtrj, OMat24 and sAlex, with OSOD openness. Model-specific
@@ -174,6 +176,7 @@ metrics:
       name: models/deepmd/dpa-4.1-max-oam/2026-10-21-discovery.csv.gz
       size: 1316469
       md5: c44c675c5d14ae3f9b11da3ea1359caa
+      url: https://ndownloader.figshare.com/files/70537422
     full_test_set:
       F1: 0.9125463891386026
       DAF: 5.406571791049992
@@ -207,6 +210,7 @@ metrics:
       name: models/deepmd/dpa-4.1-max-oam/2026-10-21-geo-opt.jsonl.gz
       size: 102453766
       md5: 6c52292224fb176946e1cb5f9b857f84
+      url: https://ndownloader.figshare.com/files/70537431
     symprec=1e-5:
       rmsd: 0.0573464311982659
       n_sym_ops_mae: 2.7805403890832534
@@ -218,6 +222,7 @@ metrics:
         name: models/deepmd/dpa-4.1-max-oam/2026-10-21-geo-opt-symprec=1e-5-moyo=0.21.0.csv.gz
         size: 1323918
         md5: e8af3f4306a79bce4c6e2a9df05e0bd3
+        url: https://ndownloader.figshare.com/files/70537443
     symprec=1e-2:
       rmsd: 0.0573464311982659
       n_sym_ops_mae: 1.9517167841284544
@@ -229,6 +234,7 @@ metrics:
         name: models/deepmd/dpa-4.1-max-oam/2026-10-21-geo-opt-symprec=1e-2-moyo=0.21.0.csv.gz
         size: 1330345
         md5: e4a5caf517b10ae5f8050a66e2e9ca42
+        url: https://ndownloader.figshare.com/files/70537446
   phonons:
     kappa_103:
       κ_SRME: 0.09032226144779087
@@ -241,19 +247,23 @@ metrics:
         name: models/deepmd/dpa-4.1-max-oam/2026-10-12-phonons-kappa-103.json.gz
         size: 11056346
         md5: 006a9d2e42b517877725280c47a5c7ec
+        url: https://ndownloader.figshare.com/files/70537449
       force_file:
         name: models/deepmd/dpa-4.1-max-oam/2026-10-12-phonons-kappa-103-forces.json.gz
         size: 59184127
         md5: a959d71fc064a17a8a9e4065d85b9ff2
+        url: https://ndownloader.figshare.com/files/70537452
       run_info_file:
         name: models/deepmd/dpa-4.1-max-oam/2026-10-12-phonons-kappa-103-run-info.json
         size: 969
         md5: c46f357ee01ee7bb89b33a36fe94eb54
+        url: https://ndownloader.figshare.com/files/70537491
   md:
     pred_file:
       name: models/deepmd/dpa-4.1-max-oam/2026-10-22-md-metrics.csv.gz
       size: 1583
       md5: 593b27e2b490c8db12fd32aa1ec010ee
+      url: https://ndownloader.figshare.com/files/70537494
     hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
     run_time_sec: 298490.32
     max_rss_gb: 3.193
@@ -270,6 +280,7 @@ metrics:
       name: models/deepmd/dpa-4.1-max-oam/2026-10-22-diatomics.json.gz
       size: 503669
       md5: 0aa569e6373b1d272977524e4357caa0
+      url: https://ndownloader.figshare.com/files/70537497
     energy_jump: 495.40637647848706
     pbe_bond_length_error: 0.29157354066831775
     pbe_wall_dist_mae: 0.5189467673051608
