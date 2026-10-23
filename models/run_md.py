@@ -65,6 +65,7 @@ def main() -> int:
         ),
     )
     parser.add_argument("--systems", nargs="*", help="Subset of system names")
+    parser.add_argument("--checkpoint", help="Use an explicit local model checkpoint")
     parser.add_argument("--n-steps", type=int, default=80_000)
     parser.add_argument("--time-step-fs", type=float, default=0.25)
     parser.add_argument("--record-interval", type=int, default=10)
@@ -101,6 +102,7 @@ def main() -> int:
                 "record-interval": args.record_interval,
                 "seed": args.seed,
                 "dtype": args.dtype,
+                "checkpoint": args.checkpoint,
             },
             ("write-yaml", "dry-run"),
         )
@@ -124,7 +126,8 @@ def main() -> int:
     arch_dir = os.path.dirname(model.rel_path) if model else args.model
     out_dir = args.out_dir or f"{module_dir}/{arch_dir}/{today}-md-nvt"
 
-    calculator = load_calculator(args.model, dtype=args.dtype)
+    checkpoint_kwargs = {"checkpoint": args.checkpoint} if args.checkpoint else {}
+    calculator = load_calculator(args.model, dtype=args.dtype, **checkpoint_kwargs)
     df_md = run_md_benchmark(
         calculator=calculator,
         model_key=args.model,

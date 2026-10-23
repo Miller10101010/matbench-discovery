@@ -185,6 +185,7 @@ def main() -> int:
     parser.add_argument(
         "--n-points", type=int, default=119, help="Number of log-spaced distances"
     )
+    parser.add_argument("--checkpoint", help="Use an explicit local model checkpoint")
     args = parser.parse_args()
 
     model_key = resolve_cli_calculator(parser, args.model, list_models=args.list_models)
@@ -208,6 +209,7 @@ def main() -> int:
             args.model,
             {
                 "dtype": args.dtype,
+                "checkpoint": args.checkpoint,
                 "device": args.device,
                 "min-dist": args.min_dist,
                 "max-dist": args.max_dist,
@@ -328,7 +330,10 @@ def main() -> int:
     else:
         z_values = all_z_values[shard_index::n_shards]
         load_start = time.perf_counter()
-        calculator = load_calculator(args.model, device=args.device, dtype=args.dtype)
+        checkpoint_kwargs = {"checkpoint": args.checkpoint} if args.checkpoint else {}
+        calculator = load_calculator(
+            args.model, device=args.device, dtype=args.dtype, **checkpoint_kwargs
+        )
         load_time_sec = time.perf_counter() - load_start
         hardware = detect_hardware()  # after load: the backend's GPU is now initialized
         print(

@@ -1,0 +1,546 @@
+# REVIEW DRAFT: unknown owner metadata must be completed before official submission.
+model_name: DPA-4.1-Max-OAM
+model_key: dpa-4.1-max-oam
+model_version: null
+dates:
+  benchmark_added: null
+  paper_published: null
+lifecycle: active
+authors: []
+repo: https://github.com/deepmodeling/deepmd-kit
+doi: null
+paper: null
+pr_url: null
+checkpoint_url: null
+license:
+  code: LGPL-3.0
+  code_url: https://github.com/deepmodeling/deepmd-kit/blob/b94c0043eac81c06c123563295875055e37c43ae/LICENSE
+  checkpoint: null
+environment:
+  dependencies:
+  - deepmd-kit @ https://github.com/deepmodeling/deepmd-kit/archive/b94c0043eac81c06c123563295875055e37c43ae.tar.gz
+  - torch==2.11.0+cu128
+  - e3nn==0.6.0
+  python_version: '3.14'
+  project: models/deepmd/dpa41-env
+openness: null
+architecture_types:
+- gnn
+train_task: null
+test_task: IS2RE-SR
+targets: EFS_G
+training_sets: []
+model_params: 99009258
+hyperparams:
+  evaluation:
+    kappa:
+      protocol: phonondb-v1
+      displacement_distance: 0.03
+      temperatures:
+      - 300
+      ase_optimizer: FIRE
+      ase_filter: FrechetCellFilter
+      force_max: 0.0001
+      max_steps: 300
+      symprec: 1.0e-05
+      conductivity_broken_symm: false
+      save_forces: true
+    ase_optimizer: FIRE
+    max_force: 0.02
+    max_steps: 500
+  architecture:
+    graph_construction_radius: 6.0
+    max_neighbors: 256
+  upstream_config:
+    model:
+      type: dpa4
+      type_map:
+      - H
+      - He
+      - Li
+      - Be
+      - B
+      - C
+      - N
+      - O
+      - F
+      - Ne
+      - Na
+      - Mg
+      - Al
+      - Si
+      - P
+      - S
+      - Cl
+      - Ar
+      - K
+      - Ca
+      - Sc
+      - Ti
+      - V
+      - Cr
+      - Mn
+      - Fe
+      - Co
+      - Ni
+      - Cu
+      - Zn
+      - Ga
+      - Ge
+      - As
+      - Se
+      - Br
+      - Kr
+      - Rb
+      - Sr
+      - Y
+      - Zr
+      - Nb
+      - Mo
+      - Tc
+      - Ru
+      - Rh
+      - Pd
+      - Ag
+      - Cd
+      - In
+      - Sn
+      - Sb
+      - Te
+      - I
+      - Xe
+      - Cs
+      - Ba
+      - La
+      - Ce
+      - Pr
+      - Nd
+      - Pm
+      - Sm
+      - Eu
+      - Gd
+      - Tb
+      - Dy
+      - Ho
+      - Er
+      - Tm
+      - Yb
+      - Lu
+      - Hf
+      - Ta
+      - W
+      - Re
+      - Os
+      - Ir
+      - Pt
+      - Au
+      - Hg
+      - Tl
+      - Pb
+      - Bi
+      - Po
+      - At
+      - Rn
+      - Fr
+      - Ra
+      - Ac
+      - Th
+      - Pa
+      - U
+      - Np
+      - Pu
+      - Am
+      - Cm
+      - Bk
+      - Cf
+      - Es
+      - Fm
+      - Md
+      - 'No'
+      - Lr
+      - Rf
+      - Db
+      - Sg
+      - Bh
+      - Hs
+      - Mt
+      - Ds
+      - Rg
+      - Cn
+      - Nh
+      - Fl
+      - Mc
+      - Lv
+      - Ts
+      - Og
+      descriptor:
+        type: dpa4
+        rcut: 6.0
+        n_radial: 16
+        use_env_seed: true
+        mmax: 1
+        radial_so2_mode: degree_channel
+        focus_dim: 0
+        n_atten_head: 1
+        message_node_so3: true
+        ffn_neurons: 0
+        ffn_so3_grid: true
+        grid_mlp: false
+        grid_branch:
+        - 0
+        - 0
+        - 1
+        ffn_blocks: 1
+        so3_readout: none
+        precision: float32
+        edge_norm:
+        - false
+        - false
+        - true
+        sandwich_norm:
+        - true
+        - false
+        - true
+        - false
+        env_exp: 5
+        basis_type: gaussian/fix
+        channels: 96
+        lmax: 6
+        n_blocks: 8
+        mixing_layers: 4
+        radial_so2_rank: 4
+        n_focus: 2
+        use_amp: true
+        seed: 42
+        sel: 256
+        radial_mlp:
+        - 0
+        random_gamma: true
+        edge_cartesian: false
+        node_cartesian: none
+        l_schedule: null
+        kmax: 1
+        m_schedule: null
+        extra_node_l: 0
+        so2_norm: false
+        so2_attn_res: none
+        atten_f_mix: false
+        atten_v_proj: false
+        atten_o_proj: false
+        mlp_bias: false
+        layer_scale: false
+        full_attn_res: none
+        block_attn_res: none
+        s2_activation:
+        - false
+        - true
+        node_wise_s2: false
+        node_wise_so3: false
+        message_node_s2: false
+        readout_layers: 1
+        lebedev_quadrature: true
+        activation_function: silu
+        glu_activation: true
+        add_chg_spin_ebd: false
+        default_chg_spin: null
+        exclude_types: []
+        eps: 1.0e-07
+        trainable: true
+      fitting_net:
+        type: dpa4_ener
+        neuron:
+        - 0
+        precision: float32
+        vacuum_ref: true
+        seed: 42
+        numb_fparam: 0
+        numb_aparam: 0
+        default_fparam: null
+        dim_case_embd: 0
+        activation_function: silu
+        resnet_dt: false
+        trainable: true
+        rcond: null
+        atom_ener: []
+        use_aparam_as_mask: false
+        case_film_embd: false
+      preset_out_bias:
+        energy:
+          H: -1.11735921
+          He: 0.00072954
+          Li: -0.29748611
+          Be: -0.01782239
+          B: -0.25734156
+          C: -1.25021064
+          N: -3.12441985
+          O: -1.65374417
+          F: -0.49252164
+          Ne: -0.01247796
+          Na: -0.22870161
+          Mg: -0.09610658
+          Al: -0.20483144
+          Si: -0.81475807
+          P: -1.88810233
+          S: -0.87991589
+          Cl: -0.24670388
+          Ar: -0.04953865
+          K: -0.22628721
+          Ca: -0.09267035
+          Sc: -2.21339504
+          Ti: -2.63982102
+          V: -3.73739476
+          Cr: -5.60265238
+          Mn: -5.32539558
+          Fe: -3.59646519
+          Co: -2.14803415
+          Ni: -1.05263706
+          Cu: -0.60057645
+          Zn: -0.16513938
+          Ga: -0.3492915
+          Ge: -0.89181347
+          As: -1.68361385
+          Se: -0.75776795
+          Br: -0.21051221
+          Kr: -0.03222653
+          Rb: -0.18698314
+          Sr: -0.06804051
+          Y: -2.22084712
+          Zr: -2.31307488
+          Nb: -3.1635722
+          Mo: -4.60202593
+          Tc: -3.54437113
+          Ru: -2.61646665
+          Rh: -1.72385331
+          Pd: -1.47772741
+          Ag: -0.33955104
+          Cd: -0.16845757
+          In: -0.34399097
+          Sn: -0.82535907
+          Sb: -1.4111781
+          Te: -0.64594019
+          I: -0.17802982
+          Xe: -0.0086123
+          Cs: -0.13563312
+          Ba: -0.03400297
+          La: -0.6851664
+          Ce: -1.47222392
+          Pr: -0.37210695
+          Nd: -0.25548789
+          Pm: -0.12652484
+          Sm: 0.00131425
+          Eu: -8.36636129
+          Gd: -10.36747409
+          Tb: 0.48416441
+          Dy: 0.65727533
+          Ho: -0.38379388
+          Er: -0.38610604
+          Tm: -0.31738017
+          Yb: -0.06423855
+          Lu: -0.381518
+          Hf: -3.52789166
+          Ta: -3.74334288
+          W: -4.65659151
+          Re: -4.70116882
+          Os: -2.89848439
+          Ir: -1.57731153
+          Pt: -0.56968822
+          Au: -0.28806702
+          Hg: -0.12460079
+          Tl: -0.30597824
+          Pb: -0.76492312
+          Bi: -1.32635439
+          Ac: -0.38628688
+          Th: -1.02769395
+          Pa: -2.67263716
+          U: -5.02364665
+          Np: -7.69888774
+          Pu: -10.80589773
+      use_compile: true
+      enable_tf32: true
+      data_stat_nbatch: 10
+      data_stat_protect: 0.01
+      data_stat_full: false
+      data_bias_nsample: 10
+      pair_exclude_types: []
+      atom_exclude_types: []
+      srtab_add_bias: true
+      model_branch_alias: []
+      info: {}
+      bridging_method: None
+      bridging_fraction_inner: 0.26
+      bridging_fraction_outer: 0.8
+      bridging_r_inner: null
+      bridging_r_outer: null
+      lora: null
+notes:
+  submission_status: Draft prepared for colleague review before the model owner makes
+    the official submission. Author, training-data, license and public-hosting metadata
+    are awaiting owner confirmation. The Python 3.14 shared-runner environment remains
+    under validation.
+  prediction_provenance: Discovery and phonon predictions were supplied in the model
+    submission directory and re-evaluated with Matbench Discovery commit 2b7bff925a6aff10240cf6ef0f59149f51adff7b.
+    Canonical schema conversion preserves physical predictions.
+  geometry_metadata: Historical per-structure convergence flags and optimization step
+    counts were not supplied. These are recorded as null. The historical cell filter
+    still needs confirmation.
+  release_checkpoint: 'Inference-only checkpoint copy: optimizer, auxiliary EMA state
+    and training history removed. All model tensors and the model configuration are
+    identical to the original checkpoint, and strict model loading passed. The original
+    top-level model weights are retained without EMA substitution. This is a checkpoint,
+    not a frozen export. Source SHA256: a60624085255340a43c8b6a82428a7b414280cf02edb06dcab286bfe4614c9d2.
+    Release SHA256: fb19a96ef950e7853aca2cabaee1aa3b72e54f6d5e307732523f5be8aa3bdf78.'
+  discovery_protocol: Supplied workflow logs record FIRE, max_force=0.02 eV/angstrom,
+    max_steps=500 and DP_TRITON_INFER=0. Cell-filter settings and per-structure convergence/step
+    records are not recoverable from the supplied files.
+  additional_benchmarks: 'Reused existing identical-checkpoint results: 17 complete
+    20 ps NVT trajectories and 92 homonuclear curves (87 scored elements). Artifact
+    identity, full trajectory coverage, reference identity, per-system versus aggregate
+    MD results, and current metric aggregation were audited. Diatomic curves were
+    rescored with current PBE references. No new inference or independent recomputation
+    of every MD observable was performed. MD energy/force RMSE requiring private labels
+    is unavailable.'
+  timing_provenance: Reuse measured RTX PRO 6000 timings as explicitly approved by
+    user; no conversion to A800/H100/H200.
+  validation_limitations: Diatomic frozen/eager precision parity failed for some extreme
+    short-range curves; source diagnostics are preserved without excluding those elements.
+  historical_md_diatomic_environment: Reported MD and diatomic results were measured
+    on NVIDIA RTX PRO 6000 Blackwell Server Edition, with Python 3.13 and Torch 2.13.0+cu130.
+    Original per-run manifests preserve the DeepMD package/source revisions. The declared
+    Python 3.14 environment is a separate reproduction candidate; its performance
+    has not been substituted for historical measurements.
+  diatomic_short_range_behavior: Very large short-range diatomic errors are retained
+    in the official aggregates, including Ne-dominated energy/force errors. The source
+    workspace includes selected FP64 and finite-difference diagnostics that also reproduce
+    anomalies; these diagnostics do not establish numerical parity for all 92 curves.
+    No outlier elements were removed and no diagnostic curves replaced the historically
+    evaluated FP32 curves.
+metrics:
+  discovery:
+    pred_file:
+      name: models/deepmd/dpa-4.1-max-oam/2026-10-21-discovery.csv.gz
+      size: 1316469
+      md5: c44c675c5d14ae3f9b11da3ea1359caa
+    full_test_set:
+      F1: 0.9125463891386026
+      DAF: 5.406571791049992
+      Precision: 0.9277077377325772
+      Recall: 0.8978726299555475
+      Accuracy: 0.9704704568361983
+      TP: 39589
+      FP: 3085
+      TN: 209786
+      FN: 4503
+      MAE: 0.01678890960106787
+      RMSE: 0.06585670324494183
+      R2: 0.8660914473170616
+      missing_preds: 2
+    unique_prototypes:
+      F1: 0.9331055647099729
+      DAF: 6.159628135917502
+      Precision: 0.9416323417238749
+      Recall: 0.9247318271708516
+      Accuracy: 0.9794652138402138
+      TP: 30862
+      FP: 1913
+      TN: 180201
+      FN: 2512
+      MAE: 0.01689951644639145
+      RMSE: 0.0657832431720416
+      R2: 0.8723850209037483
+      missing_preds: 0
+  geo_opt:
+    pred_file:
+      name: models/deepmd/dpa-4.1-max-oam/2026-10-21-geo-opt.jsonl.gz
+      size: 102453766
+      md5: 6c52292224fb176946e1cb5f9b857f84
+    symprec=1e-5:
+      rmsd: 0.0573464311982659
+      n_sym_ops_mae: 2.7805403890832534
+      symmetry_decrease: 0.35763514591594897
+      symmetry_match: 0.4281122184905998
+      symmetry_increase: 0.1614201266330172
+      n_structures: 256963
+      analysis_file:
+        name: models/deepmd/dpa-4.1-max-oam/2026-10-21-geo-opt-symprec=1e-5-moyo=0.21.0.csv.gz
+        size: 1323918
+        md5: e8af3f4306a79bce4c6e2a9df05e0bd3
+    symprec=1e-2:
+      rmsd: 0.0573464311982659
+      n_sym_ops_mae: 1.9517167841284544
+      symmetry_decrease: 0.12479228527064208
+      symmetry_match: 0.747317707218549
+      symmetry_increase: 0.11330425002821418
+      n_structures: 256963
+      analysis_file:
+        name: models/deepmd/dpa-4.1-max-oam/2026-10-21-geo-opt-symprec=1e-2-moyo=0.21.0.csv.gz
+        size: 1330345
+        md5: e4a5caf517b10ae5f8050a66e2e9ca42
+  phonons:
+    kappa_103:
+      κ_SRME: 0.09032226144779087
+      κ_SRE: 0.041022539026755615
+      κ_SRD: -0.013162856931403118
+      κ_failure_rate: 0.0
+      imaginary_mode_rate: 0.0
+      spectrum_w1: 0.05421553398058253
+      pred_file:
+        name: models/deepmd/dpa-4.1-max-oam/2026-10-12-phonons-kappa-103.json.gz
+        size: 11056346
+        md5: 006a9d2e42b517877725280c47a5c7ec
+      force_file:
+        name: models/deepmd/dpa-4.1-max-oam/2026-10-12-phonons-kappa-103-forces.json.gz
+        size: 59184127
+        md5: a959d71fc064a17a8a9e4065d85b9ff2
+      run_info_file:
+        name: models/deepmd/dpa-4.1-max-oam/2026-10-12-phonons-kappa-103-run-info.json
+        size: 969
+        md5: c46f357ee01ee7bb89b33a36fe94eb54
+  md:
+    pred_file:
+      name: models/deepmd/dpa-4.1-max-oam/2026-10-22-md-metrics.csv.gz
+      size: 1583
+      md5: 593b27e2b490c8db12fd32aa1ec010ee
+    hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
+    run_time_sec: 298490.32
+    max_rss_gb: 3.193
+    max_gpu_mem_gb: 22.588
+    rdf_error: 3.0848200036026032
+    adf_error: 1.2417557174391243
+    vdos_error: 21.356008008288754
+    pressure_mae: 0.7549753357141125
+    pressure_wasserstein: 0.7612874197528776
+    pressure_error: 43.27979552945149
+    n_systems: 17
+  diatomics:
+    pred_file:
+      name: models/deepmd/dpa-4.1-max-oam/2026-10-22-diatomics.json.gz
+      size: 503669
+      md5: 0aa569e6373b1d272977524e4357caa0
+    energy_jump: 495.40637647848706
+    pbe_bond_length_error: 0.29157354066831775
+    pbe_wall_dist_mae: 0.5189467673051608
+    energy_diff_flips: 3.264367816091954
+    pbe_vib_freq_error: 460.4865244234089
+    pbe_force_mae: 83.30947559310628
+    tortuosity: 1.525284113350286
+    pbe_well_depth_error: 5.923840265149815
+    pbe_energy_mae: 5.7601857606200255
+    force_flips: 3.367816091954023
+    force_total_variation: 74450.59293998298
+    force_jump: 109890.25392851884
+    run_time_sec: 262.76
+    hardware: NVIDIA RTX PRO 6000 Blackwell Server Edition
+    max_rss_gb: 2.619
+    max_gpu_mem_gb: 0.765
+    excluded_formula_reasons: {}
+    pbe_vib_freq_coverage:
+      n_valid: 67
+      n_eligible: 73
+      failed_elements:
+      - Br
+      - F
+      - I
+      - Te
+      - Tl
+      - Yb
+      missing_elements: []

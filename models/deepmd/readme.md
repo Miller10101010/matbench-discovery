@@ -76,3 +76,70 @@ activations, a 6.0 Å cutoff, and up to 384 selected neighbors (~22.8M
 parameters). It was trained for 2×10⁶ steps with the HybridMuon optimizer, a WSD
 learning-rate schedule, MAE energy/force/virial loss weights 20/20/5, bf16 AMP,
 TF32 matmul, and `torch.compile` enabled.
+
+### DPA-4.1-OAM inference
+
+The three DPA-4.1 model cards are review drafts. Author, checkpoint-license,
+training-data and public-artifact metadata require model-owner confirmation;
+their absence currently prevents the complete model-schema checks from passing.
+Known Air/Max short-range diatomic anomalies and frozen/eager precision
+limitations are recorded in the cards and retained in the metrics.
+
+The DPA-4.1-Air-OAM and DPA-4.1-Max-OAM checkpoints use DeePMD's `--pt`
+export backend. DPA-4.1C-Air-OAM uses `--pt-expt`. Their shared calculator
+exports the original training checkpoint to a `.pt2` archive. The pinned DPA4
+exporter produces an `edge_vec` artifact and uses `DeepPot`'s native neighbor
+list builder. DPA4C produces a graph artifact and uses the native cell-list
+graph builder. ASE energy, force, and stress conversion uses DeePMD's
+`DP.calculate` implementation.
+
+The DPA4 models use `models/deepmd/dpa41-env` with PyTorch `2.11.0+cu128`;
+their export pipeline requires PyTorch 2.11–2.13. DPA4C uses
+`models/deepmd/dpa41c-env` with PyTorch `2.10.0+cu126`. Both environments pin
+DeePMD commit `b94c0043eac81c06c123563295875055e37c43ae` and Python 3.14.
+They build DeePMD from source and require Linux x86-64, a CUDA toolkit with
+`nvcc`, and a compatible C++ compiler. Select the target GPU before building;
+native extensions target the visible GPU architecture.
+
+These Python 3.14 projects are reproduction candidates whose clean-install
+validation is incomplete. The reused Air/Max MD and diatomic measurements were
+made with Python 3.13, PyTorch 2.13.0+cu130 and archived DeePMD revisions on
+NVIDIA RTX PRO 6000 Blackwell Server Edition. Their recorded runtimes describe
+those historical runs, not the candidate environments below.
+
+DPA-4.1C-Air-OAM retains physical MD/diatomic statistics from the validated
+A800 study. Its replacement costs come from a complete RTX PRO 6000 rerun:
+3,029.08 s summed over 17 single-GPU MD systems, and 29.59 s for all 92
+diatomic curves. The timing campaign scheduled independent systems on five
+GPUs; the reported sum is not the campaign's elapsed wall time. This rerun used
+Python 3.13.15, PyTorch 2.13.0+cu130 and DeePMD
+`de3fc8f62fe8879a9803d11b39f30ac789c5793f` with uncommitted modifications
+preserved in the source workspace's `runtime/dpa4c-timing-20261022/` snapshot.
+That revision alone does not reproduce the measured runtime. The model card
+records the separate origins of physical statistics and cost measurements.
+
+From the repository root, validate a local checkpoint with the shared runner:
+
+```sh
+CUDA_VISIBLE_DEVICES=0 DP_TRITON_INFER=1 DP_CUDA_INFER=1 \
+  uv run --project models/deepmd/dpa41-env python \
+  models/run_md.py --model dpa-4.1-max-oam \
+  --checkpoint /path/to/checkpoint.pt --dry-run
+```
+
+Use the same environment with `models/run_diatomics.py` for diatomic curves.
+Both runners accept an already validated `.pt2` through `--checkpoint`.
+The example selects level-1 Triton inference; keep those settings for both
+export and evaluation when reproducing that configuration.
+Omit `--dry-run` for a full benchmark. `--print-cmd` prints the isolated
+command using the model card's environment. Public checkpoint downloading
+uses the model card's `checkpoint_url` when no override is supplied.
+
+First-use export can take substantially longer than inference, particularly
+for the Max model's kernel tuning. Exports are cached by checkpoint content,
+backend, GPU model and compute capability, kernel policy, and package versions.
+Set `DP_TRITON_INFER` and `DP_CUDA_INFER` before export to select supported
+kernel policies; the selected policy is baked into the archive. Keep it fixed
+and record it when reporting timings. Re-export for a different GPU model or
+runtime. DeePMD selects its device at import time: use `CUDA_VISIBLE_DEVICES`
+to select one GPU, or set `DEVICE=cpu` before importing for CPU inference.
