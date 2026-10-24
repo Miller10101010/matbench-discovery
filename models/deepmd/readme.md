@@ -77,18 +77,27 @@ parameters). It was trained for 2×10⁶ steps with the HybridMuon optimizer, a 
 learning-rate schedule, MAE energy/force/virial loss weights 20/20/5, bf16 AMP,
 TF32 matmul, and `torch.compile` enabled.
 
-### DPA-4.1-OAM inference
+### DPA-4.1-OAM
 
-The three DPA-4.1 model cards are review drafts. At the submitter's direction,
-authors, trained-by information, the CC-BY-4.0 checkpoint license, training task
-and targets follow the DPA-4.0.1-Pro-MPtrj card. The submitter confirms training
-on MPtrj, OMat24 and sAlex, with OSOD openness. All 30 checkpoint and
-prediction/provenance files have been uploaded with matching server MD5.
-30 files are publicly available and passed independent anonymous-download
-SHA256/MD5 checks. Verified links use the stable URLs returned by the Figshare API.
+DPA-4.1-Air-OAM, DPA-4.1-Max-OAM and DPA-4.1C-Air-OAM are trained on
+MPtrj, OMat24 and sAlex, with OSOD openness and CC-BY-4.0 checkpoints.
+Their model cards include discovery, geometry optimization, thermal
+conductivity, molecular dynamics and diatomic results. Each release contains
+an inference checkpoint and nine prediction/provenance files. All 30 files
+are public and verified by server MD5 and anonymous-download SHA256/MD5.
+
+| Model card | Parameters | F1 (unique prototypes) | κ_SRME |
+| --- | ---: | ---: | ---: |
+| [DPA-4.1-Air-OAM](dpa-4.1-air-oam.yml) | 5,147,909 | 0.920868 | 0.129003 |
+| [DPA-4.1-Max-OAM](dpa-4.1-max-oam.yml) | 99,009,258 | 0.933106 | 0.090322 |
+| [DPA-4.1C-Air-OAM](dpa-4.1c-air-oam.yml) | 433,673 | 0.798591 | 0.605776 |
+
+The cards retain full-precision metrics. See the
+[validation and submission notes](dpa41-validation.md) for evidence, numerical
+limitations and the remaining maintainer publication steps.
 
 | Model | Dataset | DOI/status |
-|---|---|---|
+| --- | --- | --- |
 | DPA-4.1-Air-OAM | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755042) | 10.6084/m9.figshare.34755042.v1 |
 | DPA-4.1-Max-OAM | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Max-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755060) | 10.6084/m9.figshare.34755060.v1 |
 | DPA-4.1C-Air-OAM | [Figshare](https://figshare.com/articles/dataset/DPA-4_1C-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755132) | 10.6084/m9.figshare.34755132.v1 |
@@ -96,30 +105,26 @@ SHA256/MD5 checks. Verified links use the stable URLs returned by the Figshare A
 Known Air/Max short-range diatomic anomalies and frozen/eager precision
 limitations are recorded in the cards and retained in the metrics.
 
-Model-specific hyperparameters come from the original checkpoints, using only
-keys already present in the MPtrj reference card. The original optimizer state
-identifies HybridMuon with `muon_mode: slice` and `weight_decay: 0.001` for all
-three models. Their checkpoint steps are 446,624 (Air), 314,359 (Max) and
-217,103 (C Air); these identify the fine-tuning checkpoints, not the sum of
-pretraining and fine-tuning steps. Loss weights, batch sizes and learning-rate
-schedules were not saved in the supplied checkpoints and are omitted. The
-reference model's training costs and hyperparameter values are not copied.
-The full model configuration remains embedded in each released
-inference checkpoint after removal of optimizer, auxiliary EMA and training
-history.
+Model-specific hyperparameters are extracted from the original checkpoints
+using the DPA-4.0.1-Pro-MPtrj card's existing keys. All three use HybridMuon
+with `muon_mode: slice` and `weight_decay: 0.001`. The selected fine-tuning
+checkpoints are steps 446,624 (Air), 314,359 (Max) and 217,103 (C Air).
+Unavailable loss weights, batch sizes and learning-rate schedules are omitted.
+Released checkpoints retain the full model configuration and identical model
+tensors; optimizer, auxiliary EMA and training history have been removed.
 
-The submitter supplied the following training costs on NVIDIA RTX PRO 6000.
-The hardware variant was not specified. Each card contains two existing-schema
-`training_cost.entries`, ordered pretraining then fine-tuning. The supplied
-times already include GPU count; `hours_per_device` divides each stage's
-GPU-hours by that count. Supplied rounded totals are preserved instead of
-recalculating them from rounded seconds per step.
+Training costs below were reported for NVIDIA RTX PRO 6000 (hardware variant
+unspecified). The two `training_cost.entries` are ordered pretraining then
+fine-tuning; each stage's GPU-hours are divided by its GPU count to obtain
+`hours_per_device`.
 
 | Model | Pretraining GPUs × hours/device | Fine-tuning GPUs × hours/device | Total GPU-hours |
 | --- | ---: | ---: | ---: |
 | DPA-4.1-Air-OAM | 4 × 40.9325 | 1 × 63.91 | 227.64 |
 | DPA-4.1-Max-OAM | 16 × 210.38375 | 2 × 80.055 | 3526.25 |
 | DPA-4.1C-Air-OAM | 1 × 17.37 | 1 × 2.44 | 19.81 |
+
+#### Inference and reproduction
 
 The DPA-4.1-Air-OAM and DPA-4.1-Max-OAM checkpoints use DeePMD's `--pt`
 export backend. DPA-4.1C-Air-OAM uses `--pt-expt`. Their shared calculator

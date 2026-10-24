@@ -76,6 +76,24 @@
         "sha256": "fee55e1a19433e40e79f9c8c132e78b2538fd5feba15eba13a657705f8590bed"
       }
     },
+    "dpa-4.1-air-oam": {
+      "parity": {
+        "asset": "kappa-parity-phonondb-v1-model-dpa-4.1-air-oam-8ecc8ff65b64d0b7.json.gz",
+        "sha256": "db3ae266d0a94418d574c1469af2af85418d3ddd2029051c545b6a08ef49da78"
+      }
+    },
+    "dpa-4.1-max-oam": {
+      "parity": {
+        "asset": "kappa-parity-phonondb-v1-model-dpa-4.1-max-oam-58383ba2c4128b11.json.gz",
+        "sha256": "4f7b5c9acf4940c8a7d5a051f03a8c20f1560fca772ac94bfacc6910baf07d71"
+      }
+    },
+    "dpa-4.1c-air-oam": {
+      "parity": {
+        "asset": "kappa-parity-phonondb-v1-model-dpa-4.1c-air-oam-542ad426f3999ba1.json.gz",
+        "sha256": "4b955a498a03cdfebe0e915406add3b1741d13e378797e716a942f8b049bc66e"
+      }
+    },
     "eqnorm-mptrj": {
       "modes": {
         "asset": "kappa-parity-phonondb-v1-modes-eqnorm-mptrj-e39ab643e66c50e6.json.gz",

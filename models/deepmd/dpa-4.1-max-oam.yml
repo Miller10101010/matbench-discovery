@@ -1,4 +1,4 @@
-# COLLEAGUE REVIEW DRAFT: public artifacts hosted; scientific and reproduction caveats remain documented.
+# Public checkpoint and predictions; validation scope and limitations are documented below.
 model_name: DPA-4.1-Max-OAM
 model_key: dpa-4.1-max-oam
 model_version: null
@@ -107,7 +107,7 @@ hyperparams:
     bf16_amp: true
     tf32_matmul: true
 notes:
-  submission_status: Draft prepared for colleague review before the model owner makes
+  submission_status: Prepared for colleague review before the model owner makes
     the official submission. The inference checkpoint and nine prediction/provenance
     files are publicly hosted on Figshare; server MD5 and anonymous-download SHA256
     checks match the validated release files. The declared Python 3.14 dependencies
