@@ -84,16 +84,14 @@ authors, trained-by information, the CC-BY-4.0 checkpoint license, training task
 and targets follow the DPA-4.0.1-Pro-MPtrj card. The submitter confirms training
 on MPtrj, OMat24 and sAlex, with OSOD openness. All 30 checkpoint and
 prediction/provenance files have been uploaded with matching server MD5.
-20 files are publicly available and passed independent anonymous-download
+30 files are publicly available and passed independent anonymous-download
 SHA256/MD5 checks. Verified links use the stable URLs returned by the Figshare API.
 
 | Model | Dataset | DOI/status |
 |---|---|---|
 | DPA-4.1-Air-OAM | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755042) | 10.6084/m9.figshare.34755042.v1 |
 | DPA-4.1-Max-OAM | [Figshare](https://figshare.com/articles/dataset/DPA-4_1-Max-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755060) | 10.6084/m9.figshare.34755060.v1 |
-| DPA-4.1C-Air-OAM | Uploaded draft 34755132; publication blocked | Not public |
-
-Figshare rejected publication of DPA-4.1C-Air-OAM draft 34755132 with HTTP 400: "Cannot publish article, please contact support." Its ten files passed server MD5 checks but remain unpublished; its public URLs stay unset. The service did not provide a more specific cause.
+| DPA-4.1C-Air-OAM | [Figshare](https://figshare.com/articles/dataset/DPA-4_1C-Air-OAM_model_checkpoint_and_Matbench_Discovery_predictions/34755132) | 10.6084/m9.figshare.34755132.v1 |
 
 Known Air/Max short-range diatomic anomalies and frozen/eager precision
 limitations are recorded in the cards and retained in the metrics.
