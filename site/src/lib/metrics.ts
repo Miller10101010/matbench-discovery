@@ -19,7 +19,7 @@ import {
 import type { ModelMetadata, TargetType } from '#lib/schema/model.js'
 import type { DiscoverySet, Label, ModelData } from '#lib/types.js'
 import MODELINGS_TASKS from '$pkg/modeling-tasks.yml'
-import { escape_html, strip_html } from 'matterviz/utils'
+import { escape_html, strip_html } from 'svelte-widgets/utils'
 import { format_num } from 'matterviz/labels'
 import { is_invalid, sort_table_rows, type CellVal } from 'matterviz/table'
 import { resolve_path } from 'svelte-widgets/json-tree/path'
@@ -388,7 +388,7 @@ export function assemble_row_data(
       [HYPERPARAMS.n_layers.key]: sortable_span(n_layers),
       Targets: targets_str,
       [METADATA_COLS.benchmark_added.key]:
-        `<span title="${model.dates.benchmark_added ? format_date(model.dates.benchmark_added) : `Unknown`}" data-sort-value="${new Date(model.dates.benchmark_added ?? ``).getTime()}">${model.dates.benchmark_added ?? `n/a`}</span>`,
+        `<span title="${model.dates.benchmark_added ? format_date(model.dates.benchmark_added) : `Unknown`}" data-sort-value="${model.dates.benchmark_added ? Date.parse(model.dates.benchmark_added) : ``}">${model.dates.benchmark_added ?? `n/a`}</span>`,
       Links: {
         paper: model.paper ?? model.doi,
         repo: model.repo,

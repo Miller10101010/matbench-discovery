@@ -429,7 +429,8 @@ describe(`MetricsTable`, () => {
       {
         col_key: `benchmark_added`,
         header: `Added`,
-        sort_key: (model: ModelData) => Date.parse(model.dates.benchmark_added ?? ``),
+        sort_key: (model: ModelData) =>
+          model.dates.benchmark_added ? Date.parse(model.dates.benchmark_added) : null,
       },
       {
         col_key: `Training Set`,
@@ -447,6 +448,15 @@ describe(`MetricsTable`, () => {
     ])(
       `sorts $header numerically via data-sort-value`,
       async ({ col_key, header, sort_key }) => {
+        if (col_key === `benchmark_added`) {
+          const model = ACTIVE_MODELS.find(make_table_filters().matches)
+          if (!model) throw new Error(`No visible model`)
+          const original_date = model.dates.benchmark_added
+          onTestFinished(() => {
+            model.dates.benchmark_added = original_date
+          })
+          model.dates.benchmark_added = null
+        }
         mount_table({
           col_filter: (col: Label) => [`Model`, col_key].includes(col.key ?? col.label),
         })
@@ -461,6 +471,15 @@ describe(`MetricsTable`, () => {
           row_models()
             .map(sort_key)
             .filter((value) => value != null)
+        const assert_missing_dates_last = () => {
+          if (col_key !== `benchmark_added`) return
+          const dates = row_models().map(sort_key)
+          const first_missing = dates.findIndex((date) => date === null)
+          expect(first_missing).toBeGreaterThanOrEqual(0)
+          expect(dates.slice(first_missing)).toEqual(
+            Array(dates.length - first_missing).fill(null),
+          )
+        }
 
         sort_header.click()
         await tick()
@@ -469,6 +488,7 @@ describe(`MetricsTable`, () => {
         expect(document.querySelector(`.cps-context`)).toBeNull()
 
         const values = cell_values()
+        assert_missing_dates_last()
         expect(values.length).toBeGreaterThan(1)
         // Known counts must be numerically sorted in either direction.
         const ascending = [...values].toSorted((val_1, val_2) => val_1 - val_2)
@@ -478,6 +498,7 @@ describe(`MetricsTable`, () => {
         sort_header.click()
         await tick()
         expect(cell_values()).toStrictEqual(values.toReversed())
+        assert_missing_dates_last()
       },
     )
 
